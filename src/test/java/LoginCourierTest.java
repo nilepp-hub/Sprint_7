@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static ru.yandex.praktikum.testdata.CourierTestData.getCourierRequestAllRequiredField;
 import static ru.yandex.praktikum.testdata.LoginTestData.invalidLoginPassword;
-import static ru.yandex.praktikum.testdata.LoginTestData.requestWithoutRequiredField;
+import static ru.yandex.praktikum.testdata.LoginTestData.requestWithoutLogin;
 
 public class LoginCourierTest {
     public static final String COURIER_LOGIN = "courier/login";
@@ -85,7 +85,7 @@ public class LoginCourierTest {
         Response response = given()
                 .header("Content-type", "application/json")
                 .baseUri(getBaseUri())
-                .body(requestWithoutRequiredField())
+                .body(requestWithoutLogin())
                 .post(COURIER_LOGIN);
         response.then().statusCode(400)
                 .and()

@@ -29,8 +29,8 @@ public class LoginForCourier {
         this.password = password;
     }
 
-    private static final String LOGIN = RandomStringUtils.randomAlphanumeric(5);
-    private static final String PASSWORD = "asdasd";
+    private static final String LOGIN = RandomStringUtils.randomAlphanumeric(10);
+    private static final String PASSWORD = RandomStringUtils.randomAlphanumeric(10);
 
     public static LoginForCourier getLoginRequestAllRequiredField(NewCourier newCourier)
     {

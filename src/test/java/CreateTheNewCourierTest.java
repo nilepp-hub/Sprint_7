@@ -25,10 +25,51 @@ public class CreateTheNewCourierTest {
     }
 
     @Test
-    @DisplayName("Валидные данные для создания курьера")
+    @DisplayName("Невалидные данные для создания курьера: пустой login")
+    @Description("Создание курьера с пустым полем login. Ожидаемый результат: код ответа 400 и сообщение об ошибке \"Недостаточно данных для создания учетной записи\"")
+    public void createCourierWithoutLogin(){
+        courierClient.getIncorrectCourier(CourierTestData.getCourierRequestWithoutLogin())
+                .then().statusCode(400)
+                .and()
+                .assertThat().body("message", equalTo(EXPECTED_MESSAGE_400));
+    }
+
+    @Test
+    @DisplayName("Невалидные данные для создания курьера: пустой password")
+    @Description("Создание курьера с пустым полем password. Ожидаемый результат: код ответа 400 и сообщение об ошибке \"Недостаточно данных для создания учетной записи\"")
+    public void createCourierWithoutPassword(){
+        courierClient.getIncorrectCourier(CourierTestData.getCourierRequestWithoutPassword())
+                .then().statusCode(400)
+                .and()
+                .assertThat().body("message", equalTo(EXPECTED_MESSAGE_400));
+    }
+
+    @Test
+    @DisplayName("Невалидные данные для создания курьера: пустые login и password")
+    @Description("Создание курьера с пустыми полями login и password. Ожидаемый результат: код ответа 400 и сообщение об ошибке \"Недостаточно данных для создания учетной записи\"")
+    public void createCourierWithoutLoginAndPassword(){
+        courierClient.getIncorrectCourier(CourierTestData.getCourierRequestWithoutLoginAndPassword())
+                .then().statusCode(400)
+                .and()
+                .assertThat().body("message", equalTo(EXPECTED_MESSAGE_400));
+    }
+
+    @Test
+    @DisplayName("Валидные данные для создания курьера: login, password, firstName")
     @Description("Позитивный сценарий создания курьера. Ожидание: возвращается код ответа 201 и ok: true")
     public void createNewCorrectCourier() {
         courierClient.getCorrectNewCourier(CourierTestData.getCourierRequestAllRequiredField())
+                .then().statusCode(SC_CREATED)
+                .and()
+                .assertThat().body("ok", equalTo(true));
+    }
+
+    @Test
+    @DisplayName("Валидные данные для создания курьера: login, password")
+    @Description("Позитивный сценарий создания курьера. Ожидание: возвращается код ответа 201 и ok: true")
+    public void createWithoutFirstName() {
+        courierClient.getCorrectNewCourier(CourierTestData.getCourierRequestWithoutFirstName())
+
                 .then().statusCode(SC_CREATED)
                 .and()
                 .assertThat().body("ok", equalTo(true));
@@ -45,20 +86,12 @@ public class CreateTheNewCourierTest {
                 .assertThat().body("message", equalTo(EXPECTED_MESSAGE_409));
     }
 
-    @Test
-    @DisplayName("Невалидные данные для создания курьера")
-    @Description("Создание курьера без одного обязательного поля. Ожидаемый результат: код ответа 400 и сообщение об ошибке \"Недостаточно данных для создания учетной записи\"")
-    public void createCourierWithoutRequiredField(){
-        courierClient.getIncorrectCourier(CourierTestData.getCourierRequestWithoutRequiredField())
-                .then().statusCode(400)
-                .and()
-                .assertThat().body("message", equalTo(EXPECTED_MESSAGE_400));
-    }
-
     @After
     @Step("Удаление курьера")
     public void cleanUp() {
         if(id != null) {
+            courierClient.deleteCourier(LoginForCourier.getLoginRequestAllRequiredField(CourierTestData.getCourierRequestWithoutFirstName()))
+                    .then().statusCode(200);
             courierClient.deleteCourier(LoginForCourier.getLoginRequestAllRequiredField(CourierTestData.getCourierRequestAllRequiredField()))
                     .then().statusCode(200);
         }

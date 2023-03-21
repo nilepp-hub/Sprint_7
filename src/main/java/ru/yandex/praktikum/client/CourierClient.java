@@ -6,6 +6,7 @@ import ru.yandex.praktikum.model.NewCourier;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 import static ru.yandex.praktikum.settings.Config.*;
+import io.restassured.http.ContentType;
 
 public class CourierClient {
     @Step("Регистрация нового курьера")
@@ -61,6 +62,6 @@ public class CourierClient {
         return given()
                 .header("Content-type", "application/json")
                 .baseUri(getBaseUri())
-                .delete(COURIER + '/' + id);
+                .delete(COURIER + id);
     }
 }

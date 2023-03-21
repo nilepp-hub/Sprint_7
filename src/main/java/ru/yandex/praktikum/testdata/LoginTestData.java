@@ -5,8 +5,8 @@ import ru.yandex.praktikum.model.NewCourier;
 import ru.yandex.praktikum.model.LoginForCourier;
 
 public class LoginTestData {
-    private static final String LOGIN = RandomStringUtils.randomAlphanumeric(5);
-    private static final String PASSWORD = RandomStringUtils.randomAlphanumeric(5);
+    private static final String LOGIN = RandomStringUtils.randomAlphanumeric(10);
+    private static final String PASSWORD = RandomStringUtils.randomAlphanumeric(10);
     public static LoginForCourier correctLogin(NewCourier newCourier) {
         LoginForCourier loginForCourier = new LoginForCourier();
         loginForCourier.setLogin(newCourier.getLogin());
@@ -19,7 +19,7 @@ public class LoginTestData {
         loginForCourier.setPassword(PASSWORD);
         return loginForCourier;
     }
-    public static LoginForCourier requestWithoutRequiredField() {
+    public static LoginForCourier requestWithoutLogin() {
         LoginForCourier loginForCourier = new LoginForCourier();
         loginForCourier.setPassword(PASSWORD);
         return loginForCourier;

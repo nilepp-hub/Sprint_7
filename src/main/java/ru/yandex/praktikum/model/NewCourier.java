@@ -39,9 +39,9 @@ public class NewCourier {
         this.firstName = firstName;
     }
 
-    private static final String LOGIN = RandomStringUtils.randomAlphanumeric(5);
-    private static final String PASSWORD = "myPas";
-    private static final String FIRST_NAME = "Ali";
+    private static final String LOGIN = RandomStringUtils.randomAlphanumeric(10);
+    private static final String PASSWORD = RandomStringUtils.randomAlphanumeric(10);
+    private static final String FIRST_NAME = "bulgur";
 
     public static NewCourier getCourierRequestAllRequiredField()
     {
@@ -52,19 +52,11 @@ public class NewCourier {
         return newCourier;
     }
 
-    public static NewCourier getCourierRequestExistingLogin(NewCourier existingCourier) {
-        NewCourier newCourier = new NewCourier();
-        newCourier.setLogin(existingCourier.getLogin());
-        newCourier.setPassword(existingCourier.getPassword());
-        newCourier.setFirstName(existingCourier.getFirstName());
-        return newCourier;
-    }
-
-    public static NewCourier getCourierRequestWithoutRequiredField()
+    public static NewCourier getCourierRequestWithoutFirstName()
     {
         NewCourier newCourier = new NewCourier();
+        newCourier.setLogin(LOGIN);
         newCourier.setPassword(PASSWORD);
-        newCourier.setFirstName(FIRST_NAME);
         return newCourier;
     }
 }
